@@ -47,7 +47,6 @@ namespace Landis.Extension.BaseFire
             // First, read table of additional parameters for ecoregions
             PlugIn.ModelCore.UI.WriteLine("   Loading FireRegion data...");
             
-            //IEditableFireRegionDataset dataset = new EditableFireRegionDataset();
             List<IFireRegion> dataset = new List<IFireRegion>(0);
             
             Dictionary <string, int> nameLineNumbers = new Dictionary<string, int>();
@@ -60,6 +59,7 @@ namespace Landis.Extension.BaseFire
             InputVar<double> minSize = new InputVar<double>("Minimum Fire Size");
             InputVar<double> ignitionProb = new InputVar<double>("Ignition Probability");
             InputVar<int> fireSpreadAge = new InputVar<int>("Fire Spread Age");
+            InputVar<double> sigma = new InputVar<double>("Fire Size Sigma");
 
             Dictionary <string, int> lineNumbers = new Dictionary<string, int>();
             const string DynamicFireRegionTable = "DynamicFireRegionTable";
@@ -109,11 +109,14 @@ namespace Landis.Extension.BaseFire
 
                 ReadValue(fireSpreadAge, currentLine);
                 ecoparameters.FireSpreadAge = fireSpreadAge.Value;
-                
+
+                ReadValue(sigma, currentLine);
+                ecoparameters.Sigma = sigma.Value;
+
                 //UI.WriteLine("Max={0}, Min={1}, Mean={2}, Eco={3}.", ecoparameters.MaxSize, ecoparameters.MinSize, ecoparameters.MeanSize, ecoparameters.Name);
                 fireRegionIndex++;
 
-                CheckNoDataAfter("the " + fireSpreadAge.Name + " column",
+                CheckNoDataAfter("the " + sigma.Name + " column",
                                  currentLine);
                                  
                 GetNextLine();

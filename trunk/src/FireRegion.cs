@@ -1,8 +1,7 @@
-//  Copyright 2005-2010 Portland State University, University of Wisconsin
+//  Copyright 2005-2016 Portland State University, University of Wisconsin
 //  Authors:    Robert M. Scheller, James B. Domingo
 
 using Landis.SpatialModeling;
-//using Landis.SpatialModeling.CoreServices;
 using Edu.Wisc.Forest.Flel.Util;
 using System.Collections.Generic;
 
@@ -23,6 +22,7 @@ namespace Landis.Extension.BaseFire
         IFuelCurve FuelCurve {get;set;}
         IWindCurve WindCurve {get;set;}
         int Index {get; set;}
+        double Sigma { get; set; }
 
     }
 }
@@ -42,6 +42,7 @@ namespace Landis.Extension.BaseFire
         private IFuelCurve fuelCurve;
         private IWindCurve windCurve;
         private int index;
+        private double sigma;
 
         public int Index
         {
@@ -61,10 +62,8 @@ namespace Landis.Extension.BaseFire
                 return name;
             }
             set {
-                //if (value != null) {
                     if (value.Trim() == "")
                         throw new InputValueException(value, "Missing name");
-                //}
                 name = value;
             }
         }
@@ -82,6 +81,7 @@ namespace Landis.Extension.BaseFire
             }
         }
 
+        //---------------------------------------------------------------------
 
         /// <summary>
         /// Mean event size (hectares).
@@ -92,15 +92,13 @@ namespace Landis.Extension.BaseFire
                 return meanSize;
             }
             set {
-                //if (value != null) {
                     if (value < 0)
-                        throw new InputValueException(value.ToString(),
-                                                      "Value must be = or > 0.");
-                //}
+                        throw new InputValueException(value.ToString(),"Value must be = or > 0.");
                 meanSize = value;
             }
         }
 
+        //---------------------------------------------------------------------
         /// <summary>
         /// Mean event size (hectares).
         /// </summary>
@@ -110,14 +108,12 @@ namespace Landis.Extension.BaseFire
                 return maxSize;
             }
             set {
-                //if (value != null) {
                     if (value < 0)
-                        throw new InputValueException(value.ToString(),
-                                                      "Value must be = or > 0.");
-                //}
+                        throw new InputValueException(value.ToString(),"Value must be = or > 0.");
                 maxSize = value;
             }
         }
+        //---------------------------------------------------------------------
         /// <summary>
         /// Mean event size (hectares).
         /// </summary>
@@ -127,15 +123,13 @@ namespace Landis.Extension.BaseFire
                 return minSize;
             }
             set {
-                //if (value != null) {
                     if (value < 0)
-                        throw new InputValueException(value.ToString(),
-                                                      "Value must be = or > 0.");
-                //}
+                        throw new InputValueException(value.ToString(),"Value must be = or > 0.");
                 minSize = value;
             }
         }
 
+        //---------------------------------------------------------------------
         /// <summary>
         /// Ignition probability
         /// </summary>
@@ -145,10 +139,8 @@ namespace Landis.Extension.BaseFire
                 return ignitionProbability;
             }
             set {
-                //if (value != null) {
                     if (value < 0.0 || value > 1.0)
                         throw new InputValueException(value.ToString(), "Value must be >= 0 and <= 1.0");
-                //}
                 ignitionProbability = value;
             }
         }
@@ -161,12 +153,25 @@ namespace Landis.Extension.BaseFire
                 return fireSpreadAge;
             }
             set {
-                //if (value != null) {
                     if (value < 0)
-                        throw new InputValueException(value.ToString(),
-                                                      "Value must be = or > 0.");
-                //}
+                        throw new InputValueException(value.ToString(), "Value must be = or > 0.");
                 fireSpreadAge = value;
+            }
+        }
+        //---------------------------------------------------------------------
+
+
+        public double Sigma
+        {
+            get
+            {
+                return sigma;
+            }
+            set
+            {
+                if (value < 0.0)
+                    throw new InputValueException(value.ToString(), "Value must be = or > 0.");
+                sigma = value;
             }
         }
         //---------------------------------------------------------------------

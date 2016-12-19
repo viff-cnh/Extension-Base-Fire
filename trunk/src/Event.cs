@@ -163,8 +163,12 @@ namespace Landis.Extension.BaseFire
             if (ecoregion.MeanSize <= 0)
                 return 0;
             
-            PlugIn.ModelCore.ExponentialDistribution.Lambda = 1.0 / ecoregion.MeanSize;
-            double sizeGenerated = PlugIn.ModelCore.ExponentialDistribution.NextDouble();
+            //PlugIn.ModelCore.ExponentialDistribution.Lambda = 1.0 / ecoregion.MeanSize;
+            //double sizeGenerated = PlugIn.ModelCore.ExponentialDistribution.NextDouble();
+
+            PlugIn.ModelCore.LognormalDistribution.Mu = ecoregion.MeanSize;
+            PlugIn.ModelCore.LognormalDistribution.Sigma = ecoregion.Sigma;
+            double sizeGenerated = PlugIn.ModelCore.LognormalDistribution.NextDouble();
             
             int finalSize;
 
