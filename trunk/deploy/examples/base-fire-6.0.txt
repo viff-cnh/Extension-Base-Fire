@@ -3,10 +3,10 @@ LandisData  "Base Fire"
 Timestep  5
 
 >> Fire        Map	___ Event Size ___   Ignition  
->> region      Code	 Mean  Min    Max    Prob.     k
+>> region      Code	 Mean  Min    Max    Prob.     k	Sigma
 >> ---------   ------	----   ----   ----   --------  --------
-    eco1       1	 100    4     400    0.001    100
-    eco2       2	 200    6     600    0.001     50
+    eco1       1	 100    4     400    0.001    100	0
+    eco2       2	 200    6     600    0.001     50	0.25
 
 InitialFireRegionsMap	ecoregions.gis
 
